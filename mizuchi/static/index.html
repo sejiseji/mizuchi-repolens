@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mizuchi RepoLens</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Mizuchi RepoLens</p>
+        <h1>Repository lens</h1>
+      </div>
+      <div class="controls" aria-label="Project controls">
+        <input id="project-path" type="text" autocomplete="off" placeholder="Project path">
+        <button id="open-project" type="button">Open</button>
+        <button id="rescan-project" type="button">Rescan</button>
+        <button id="shutdown-app" type="button" class="danger">Shutdown</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="panel status-panel" aria-labelledby="status-heading">
+        <div class="section-heading">
+          <h2 id="status-heading">Project current status</h2>
+          <span id="server-status" class="status-pill">Checking</span>
+        </div>
+        <dl id="project-status" class="status-grid">
+          <div>
+            <dt>Project</dt>
+            <dd id="status-project">No project open</dd>
+          </div>
+          <div>
+            <dt>Cache</dt>
+            <dd id="status-cache">Unavailable</dd>
+          </div>
+          <div>
+            <dt>Git</dt>
+            <dd id="status-git">Unknown</dd>
+          </div>
+        </dl>
+        <p id="notice" class="notice" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="panel file-tree-panel" aria-labelledby="tree-heading">
+        <div class="section-heading">
+          <h2 id="tree-heading">File Tree</h2>
+          <button id="refresh-tree" type="button" class="secondary">Refresh</button>
+        </div>
+        <div class="tree-filter-controls" aria-label="File tree filter controls">
+          <input id="file-tree-filter" type="search" autocomplete="off" placeholder="Filter files">
+          <button id="clear-tree-filter" type="button" class="secondary">Clear</button>
+        </div>
+        <div id="file-tree-view" class="tree-view" aria-label="Project file tree">Open a project to load the file tree.</div>
+        <pre id="file-tree" class="code-view debug-view">File tree JSON will appear here.</pre>
+      </section>
+
+      <section class="panel graph-panel" aria-labelledby="graph-heading">
+        <div class="section-heading">
+          <h2 id="graph-heading">Graph</h2>
+          <span class="muted">Interactive view with JSON debug</span>
+        </div>
+        <div class="graph-controls" aria-label="Graph controls">
+          <button id="graph-zoom-out" type="button" class="secondary" title="Zoom out">-</button>
+          <button id="graph-zoom-in" type="button" class="secondary" title="Zoom in">+</button>
+          <button id="graph-pan-left" type="button" class="secondary" title="Pan left">Left</button>
+          <button id="graph-pan-up" type="button" class="secondary" title="Pan up">Up</button>
+          <button id="graph-pan-down" type="button" class="secondary" title="Pan down">Down</button>
+          <button id="graph-pan-right" type="button" class="secondary" title="Pan right">Right</button>
+          <button id="graph-reset-view" type="button" class="secondary">Reset</button>
+        </div>
+        <div class="graph-workspace">
+          <div class="graph-canvas-wrap" aria-label="Repository graph viewer">
+            <svg id="graph-canvas" class="graph-canvas" role="img" aria-labelledby="graph-heading"></svg>
+            <p id="graph-empty" class="graph-empty">Graph data will appear after scan APIs are available.</p>
+          </div>
+          <aside class="graph-details" aria-labelledby="graph-details-heading">
+            <h3 id="graph-details-heading">Selected node</h3>
+            <p id="graph-selected">Select a node to inspect it.</p>
+          </aside>
+        </div>
+        <pre id="graph-view" class="code-view debug-view graph-debug">Graph data will appear after scan APIs are available.</pre>
+      </section>
+
+      <section class="panel file-detail-panel" aria-labelledby="detail-heading">
+        <div class="section-heading">
+          <h2 id="detail-heading">File Detail</h2>
+          <input id="detail-path" type="text" autocomplete="off" placeholder="Relative file path">
+          <button id="load-detail" type="button" class="secondary">Load</button>
+        </div>
+        <pre id="file-detail" class="code-view">Select or enter a file path.</pre>
+      </section>
+
+      <section class="panel git-panel" aria-labelledby="timeline-heading">
+        <div class="section-heading">
+          <h2 id="timeline-heading">Git Timeline</h2>
+          <button id="refresh-timeline" type="button" class="secondary">Refresh</button>
+        </div>
+        <p id="git-selected-state" class="selection-state">No commit selected.</p>
+        <div id="git-timeline-list" class="timeline-list" aria-label="Git timeline">Timeline API data will appear here.</div>
+        <pre id="git-timeline" class="code-view debug-view">Timeline JSON will appear here.</pre>
+      </section>
+
+      <section class="panel diff-panel" aria-labelledby="diff-heading">
+        <div class="section-heading">
+          <h2 id="diff-heading">Diff</h2>
+          <input id="diff-hash" type="text" autocomplete="off" placeholder="Commit hash">
+          <button id="load-diff" type="button" class="secondary">Load</button>
+        </div>
+        <div id="git-diff-summary" class="diff-summary">No diff selected.</div>
+        <div id="git-diff-hunks" class="diff-hunk-nav" aria-label="Diff hunk navigation"></div>
+        <div id="git-diff-view" class="diff-view" aria-label="Unified diff">Diff API data will appear here.</div>
+        <pre id="git-diff" class="code-view debug-view">Diff JSON will appear here.</pre>
+      </section>
+    </main>
+
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>
